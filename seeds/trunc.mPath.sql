@@ -1,0 +1,4 @@
+TRUNCATE
+  mPath_users,
+  
+RESTART IDENTITY CASCADE;
