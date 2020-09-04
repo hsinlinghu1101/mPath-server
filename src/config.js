@@ -5,5 +5,5 @@ module.exports = {
     || 'postgresql://dunder_mifflin@localhost/mPath',
 
   JWT_SECRET: process.env.JWT_SECRET || 'its-a-secret',
- 
+  CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || 'http://localhost:3000/'
 };
