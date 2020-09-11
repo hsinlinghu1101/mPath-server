@@ -8,7 +8,6 @@ const { NODE_ENV, CLIENT_ORIGIN } = require('./config');
 //const dataRouter = require('./data/data-router');
 const usersRouter = require('./users/users-router');
 const authRouter = require('./auth/auth-router');
-const bodyParser = require('body-parser')
 const app = express();
 
 const morganOption = (NODE_ENV ==='production')
@@ -16,10 +15,9 @@ const morganOption = (NODE_ENV ==='production')
   :'common';
 
 app.use(morgan(morganOption));
-app.use(cors())
+app.use(cors());
 app.use(helmet());
 //app.use(cors({origin: CLIENT_ORIGIN}));
-app.use(bodyParser.json());
 
 
 app.use('/api/auth', authRouter);

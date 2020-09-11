@@ -1,4 +1,4 @@
-CREATE TABLE mPath_users(
+CREATE TABLE mpath_users(
     id SERIAL PRIMARY KEY,
     user_name TEXT NOT NULL UNIQUE,
     user_age INTEGER NOT NULL,

@@ -23,7 +23,7 @@ function requireAuth(res, req, next){
     });
   }
 
-  req.app.get('db')('sleeptime_users')
+  req.app.get('db')('mPath_users')
     .where({ user_name: tokenUserName})
     .first()
     .then(user =>{
