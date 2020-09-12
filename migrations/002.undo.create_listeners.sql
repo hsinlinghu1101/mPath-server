@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS listeners;
+DROP TABLE IF EXISTS "listeners";

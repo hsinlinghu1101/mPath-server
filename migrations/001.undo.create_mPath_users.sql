@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS mPath_users;
+DROP TABLE "mpath_users";

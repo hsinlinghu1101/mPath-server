@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS speakers;
+DROP TABLE IF EXISTS "speakers";
