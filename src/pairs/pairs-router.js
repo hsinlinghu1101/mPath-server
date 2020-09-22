@@ -1,7 +1,7 @@
 const express = require('express');
-const PairsService = require('./pairs-service');
+const PairsService = require('./pairs-services');
 const { requireAuth } = require('../middleware/jwt-auth');
-const pairRouter = express.Router();
+const pairsRouter = express.Router();
 const jsonBodyParser = express.json();
 
 const serializeGetSpeaker=(spe)=>({
@@ -21,7 +21,7 @@ const serializeGetListener=(lis)=>({
   user_gender:lis.user_gender,
   topic:lis.topic
 });
-pairRouter
+pairsRouter
   .post('/listeners', jsonBodyParser, (req, res, next)=>{
     const {emotion, topic, spe_gender, spe_age} = req.body;
     const newListener ={emotion, topic, spe_gender, spe_age};
@@ -46,8 +46,9 @@ pairRouter
     PairsService.getMatchLinstener(
       req.app.get('db'),
       req.params.topic,
-      req.params.lis_age,
-      req.params.lis_gender
+      req.params.lis_gender,
+      req.params.lis_age
+      
     )
       .then(data =>{
         if(!data){
@@ -84,8 +85,9 @@ pairRouter
     PairsService.getMatchSpeaker(
       req.app.get('db'),
       req.params.topic,
-      req.params.spe_age,
-      req.params.spe_gender
+      req.params.spe_gender,
+      req.params.spe_age
+      
     )
       .then(data =>{
         if(!data){
@@ -96,4 +98,5 @@ pairRouter
         res.json(data.map(serializeGetSpeaker));
       })
       .catch(next);
-  })
+  });
+module.exports = pairsRouter;
