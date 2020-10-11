@@ -19,24 +19,26 @@ const PairsService={
         return rows[0];
       });
   }, 
-  getMatchListener(db, topic, lis_gender, lis_age){
+  //lis
+  getMatchListener(db, topic, gender, age){
     return db
       .from('listeners')
       .select('listeners.*', 'mpath_users.user_age', 'mpath_users.user_gender', 'mpath_users.user_name')
-      .rightJoin('mpath_users', 'mpath_users.id', 'listeners_user_id')
-      .where('topic', topic)
-      .where('mpath_users.user_gender', lis_gender)
-      .where('mpath_users.user_age', lis_age)
+      .rightJoin('mpath_users', 'mpath_users.id', 'listeners.user_id')
+      .where({'listeners.topic': topic, 'mpath_users.user_gender': gender, 'mpath_users.user_age': age})
+      //.where('mpath_users.user_gender', gender)
+      //.where('mpath_users.user_age', age)
       .first();
   },
-  getMatcSpeaker(db, topic, spe_gender, spe_age){
+  //spe
+  getMatcSpeaker(db, topic, gender, age){
     return db
       .from('speakers')
       .select('speakers.*', 'mpath_users.user_age', 'mpath_users.user_gender', 'mpath_users.user_name')
-      .rightJoin('mpath_users', 'mpath_users.id', 'speakers_user_id')
-      .where('topic', topic)
-      .where('mpath_users.user_gender', spe_gender)
-      .where('mpath_users.user_age', spe_age)
+      .rightJoin('mpath_users', 'mpath_users.id', 'speakers.user_id')
+      .where('speakers.topic', topic)
+      .where('mpath_users.user_gender', gender)
+      .where('mpath_users.user_age', age)
       .first();
   }
 };

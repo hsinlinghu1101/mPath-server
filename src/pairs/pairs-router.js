@@ -1,19 +1,10 @@
 const express = require('express');
 const path = require('path');
 const PairsService = require('./pairs-services');
-const { requireAuth } = require('../middleware/jwt-auth');
 const pairsRouter = express.Router();
 const jsonBodyParser = express.json();
 
-const serializeGetSpeaker=(spe)=>({
-  id: spe.id,
-  user_id:spe.user_id,
-  user_name:spe.user_name,
-  user_age:spe.user_age,
-  user_gender:spe.user_gender,
-  topic:spe.topic
 
-});
 const serializeSpeaker = spe =>({
   id: spe.id,
   topic:spe.topic,
@@ -23,14 +14,7 @@ const serializeSpeaker = spe =>({
   user_id:spe.user_id
   
 });
-const serializeGetListener=(lis)=>({
-  id: lis.id,
-  user_id:lis.user_id,
-  user_name:lis.user_name,
-  user_age:lis.user_age,
-  user_gender:lis.user_gender,
-  topic:lis.topic
-});
+
 const serializeListner = lis =>({
   id: lis.id,
   topic:lis.topic,
@@ -61,14 +45,15 @@ pairsRouter
       })  
       .catch(next);
   })
-
-  .get('/listeners', requireAuth, (req, res, next)=>{
-    PairsService.getMatchLinstener(
+//lis
+  .get('/listeners/:topic/:gender/:age',  (req, res, next)=>{
+    const {topic, gender, age} = req.params;
+    PairsService.getMatchListener(
       req.app.get('db'),
-      req.params.topic,
-      req.params.lis_gender,
-      req.params.lis_age
-      
+      topic,
+      gender,
+      age
+     
     )
       .then(data =>{
         if(!data){
@@ -76,7 +61,7 @@ pairsRouter
             error:{message:'listener does not exist'}
           });
         }
-        res.json(data.map(serializeGetListener));
+        res.json(data);
       })
       .catch(next);
   })
@@ -102,13 +87,14 @@ pairsRouter
       })   
       .catch(next);
   })
-
-  .get('/speakers', requireAuth,(req, res, next)=>{
+//spe
+  .get('/speakers/:topic/:gender/:age' ,(req, res, next)=>{
+    const {topic, gender, age} = req.params;
     PairsService.getMatchSpeaker(
       req.app.get('db'),
-      req.params.topic,
-      req.params.spe_gender,
-      req.params.spe_age     
+      topic,
+      gender,
+      age     
     )
       .then(data =>{
         if(!data){
@@ -116,7 +102,7 @@ pairsRouter
             error:{message:'speaker does not exist'}
           });
         }
-        res.json(data.map(serializeGetSpeaker));
+        res.json(data);
       })
       .catch(next);
   });
