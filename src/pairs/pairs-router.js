@@ -45,7 +45,7 @@ pairsRouter
       })  
       .catch(next);
   })
-//lis
+
   .get('/listeners/:topic/:gender/:age',  (req, res, next)=>{
     const {topic, gender, age} = req.params;
     PairsService.getMatchListener(
@@ -87,7 +87,7 @@ pairsRouter
       })   
       .catch(next);
   })
-//spe
+
   .get('/speakers/:topic/:gender/:age' ,(req, res, next)=>{
     const {topic, gender, age} = req.params;
     PairsService.getMatchSpeaker(

@@ -23,6 +23,7 @@ app.use(helmet());
 app.use('/api/auth', authRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/pairs', pairsRouter);
+//app.use('/api/room', roomRouter);
 
 
 
